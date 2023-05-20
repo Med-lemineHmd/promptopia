@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { to } from "./../.next/server/app/page";
 
 const Form = ({ type, post, setPost, submitting, handleSubmit }) => {
   return (
