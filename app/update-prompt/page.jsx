@@ -2,13 +2,15 @@
 
 import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import { ToastContainer, toast } from "react-toastify";
 
 import { Form } from "@components";
 
-const EditPrompt = () => {
+const UpdatePrompt = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const promptId = searchParams.get("id");
+
   const [submitting, setSubmitting] = useState(false);
   const [post, setPost] = useState({
     prompt: "",
@@ -18,7 +20,6 @@ const EditPrompt = () => {
   useEffect(() => {
     const getPromptDetails = async () => {
       const response = await fetch(`/api/prompt/${promptId}`);
-
       const data = await response.json();
 
       setPost({
@@ -30,23 +31,24 @@ const EditPrompt = () => {
     if (promptId) getPromptDetails();
   }, [promptId]);
 
-  const createPrompt = async (e) => {
+  const updatePrompt = async (e) => {
     e.preventDefault();
-
     setSubmitting(true);
 
+    if (!promptId) return toast.warning("Prompt ID not found");
+
     try {
-      const response = await fetch("/api/prompt/new", {
-        method: "POST",
+      const response = await fetch(`/api/prompt/${promptId}`, {
+        method: "PATCH",
         body: JSON.stringify({
           prompt: post.prompt,
-          userId: session?.user.id,
           tag: post.tag,
         }),
       });
 
       if (response.ok) {
-        router.push("/");
+        toast.success("Prompt updated")
+        setTimeout(() => router.push("/"), 3000)
       }
     } catch (error) {
       console.log(error);
@@ -56,14 +58,28 @@ const EditPrompt = () => {
   };
 
   return (
+    <>
+  <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
     <Form
-      type="Update"
+      type="Edit"
       post={post}
       setPost={setPost}
       submitting={submitting}
-      handleSubmit={() => {}}
+      handleSubmit={updatePrompt}
     />
+    </>
   );
 };
 
-export default EditPrompt;
+export default UpdatePrompt;
