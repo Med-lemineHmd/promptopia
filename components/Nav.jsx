@@ -4,6 +4,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import { signIn, signOut, useSession, getProviders } from "next-auth/react";
+import { FcGoogle } from "react-icons/fc";
+import { FaGithub } from "react-icons/fa";
 
 const Nav = () => {
   const { data: session } = useSession();
@@ -64,9 +66,17 @@ const Nav = () => {
                   type="button"
                   key={provider.name}
                   onClick={() => signIn(provider.id)}
-                  className="black_btn"
+                  className="black_btn mx-2"
                 >
-                  Sign In
+                  {provider.name === "Google" ? (
+                    <>
+                      <FcGoogle className="mr-2" /> Sign in
+                    </>
+                  ) : (
+                    <>
+                      <FaGithub className="mr-2" /> Sign in
+                    </>
+                  )}
                 </button>
               ))}
           </>
@@ -122,9 +132,17 @@ const Nav = () => {
                   type="button"
                   key={provider.name}
                   onClick={() => signIn(provider.id)}
-                  className="black_btn"
+                  className="black_btn mx-2"
                 >
-                  Sign In
+                  {provider.name === "Google" ? (
+                    <>
+                      <FcGoogle className="mr-2" /> Sign in
+                    </>
+                  ) : (
+                    <>
+                      <FaGithub className="mr-2" /> Sign in
+                    </>
+                  )}
                 </button>
               ))}
           </>

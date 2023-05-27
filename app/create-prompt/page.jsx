@@ -32,8 +32,7 @@ const CreatePrompt = () => {
       });
 
       if (response.ok) {
-        toast.success("Prompt created Successfully");
-        setTimeout(() => router.push("/"), 3000);
+        router.push("/");
       }
     } catch (error) {
       toast.error("Error creating prompt");
