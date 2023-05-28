@@ -1,5 +1,8 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+
+![FireShot Capture 001 - Promptopia - promptopia-opal vercel app](https://github.com/Med-lemineHmd/promptopia/assets/76164295/6f51ff6a-1dc6-4181-9e52-7a3d604d33d9)
+
 ## Getting Started
 
 First, run the development server:
